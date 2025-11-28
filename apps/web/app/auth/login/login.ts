@@ -2,9 +2,9 @@
 
 import { jwtDecode } from "jwt-decode";
 import { redirect } from "next/navigation";
-import { FormError } from "../../common/form-error.interface";
-import { API_URL } from "../../constants/api";
-import { getErrorMessage } from "../../util/errors";
+import { FormError } from "../../common/interfaces/form-error.interface";
+import { API_URL } from "../../common/constants/api";
+import { getErrorMessage } from "../../common/util/errors";
 import { cookies } from "next/headers";
 
 export default async function login(_prevState: FormError, formData: FormData) {

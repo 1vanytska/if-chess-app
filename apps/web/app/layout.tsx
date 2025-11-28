@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material";
 import darkTheme from "./dark.theme";
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import Header from "./header/header";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +33,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider theme={darkTheme}>
             <CssBaseline />
+            <Header />
             <Container>{children}</Container>
           </ThemeProvider>
         </AppRouterCacheProvider>
