@@ -15,7 +15,9 @@ import MenuItem from '@mui/material/MenuItem';
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
 import { AuthContext } from '../auth/auth-context';
 import { useContext, useState } from 'react';
+import Link from "next/link";
 import { routes, unauthenticatedRoutes } from '../common/constants/routes';
+import { useRouter } from 'next/navigation';
 
 export function WhiteKnightIcon(props: SvgIconProps) {
     return (
@@ -36,8 +38,13 @@ export function WhiteKnightIcon(props: SvgIconProps) {
     );
 }
 
-export default function Header() {
+interface HeaderProps {
+    logout: () => Promise<void>;
+}
+
+export default function Header({ logout }: HeaderProps) {
     const IsAuthenticated = useContext(AuthContext);
+    const router = useRouter();
 
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
@@ -59,8 +66,8 @@ export default function Header() {
                     <Typography
                         variant="h6"
                         noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
+                        component={Link}
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -102,7 +109,10 @@ export default function Header() {
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                                <MenuItem key={page.title} onClick={() => {
+                                    router.push(page.path);
+                                    handleCloseNavMenu();
+                                }}>
                                     <Typography sx={{ textAlign: 'center' }}>{page.title}</Typography>
                                 </MenuItem>
                             ))}
@@ -131,21 +141,24 @@ export default function Header() {
                         {pages.map((page) => (
                             <Button
                                 key={page.title}
-                                onClick={handleCloseNavMenu}
+                                onClick={() => {
+                                    router.push(page.path);
+                                    handleCloseNavMenu();
+                                }}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
                                 {page.title}
                             </Button>
                         ))}
                     </Box>
-                    {IsAuthenticated && <Settings />}
+                    {IsAuthenticated && <Settings logout={logout}/>}
                 </Toolbar>
             </Container>
         </AppBar>
     );
 }
 
-const Settings = () => {
+const Settings = ({ logout }: HeaderProps) => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -179,7 +192,10 @@ const Settings = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
             >
-                <MenuItem key="Logout" onClick={handleCloseUserMenu}>
+                <MenuItem key="Logout" onClick={async () => {
+                    await logout();
+                    handleCloseUserMenu();
+                }}>
                     <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
                 </MenuItem>
             </Menu>

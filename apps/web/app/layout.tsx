@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Header from "./header/header";
 import Providers from "./providers";
 import authenticated from "./auth/authenticated";
+import logout from "./auth/logout";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,7 +34,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Providers authenticated={isAuthenticated}>
           <CssBaseline />
-          <Header />
+          <Header logout={logout}/>
           <Container>{children}</Container>
         </Providers>
       </body>
