@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,9 +13,9 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import SvgIcon, { SvgIconProps } from "@mui/material/SvgIcon";
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { AuthContext } from '../auth/auth-context';
+import { useContext, useState } from 'react';
+import { routes, unauthenticatedRoutes } from '../common/constants/routes';
 
 export function WhiteKnightIcon(props: SvgIconProps) {
     return (
@@ -38,7 +37,9 @@ export function WhiteKnightIcon(props: SvgIconProps) {
 }
 
 export default function Header() {
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const IsAuthenticated = useContext(AuthContext);
+
+    const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -47,6 +48,8 @@ export default function Header() {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const pages = IsAuthenticated ? routes : unauthenticatedRoutes;
 
     return (
         <AppBar position="static">
@@ -99,8 +102,8 @@ export default function Header() {
                             sx={{ display: { xs: 'block', md: 'none' } }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                                    <Typography sx={{ textAlign: 'center' }}>{page.title}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -127,15 +130,15 @@ export default function Header() {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
-                                key={page}
+                                key={page.title}
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                {page.title}
                             </Button>
                         ))}
                     </Box>
-                    <Settings />
+                    {IsAuthenticated && <Settings />}
                 </Toolbar>
             </Container>
         </AppBar>
@@ -143,7 +146,7 @@ export default function Header() {
 }
 
 const Settings = () => {
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -176,11 +179,9 @@ const Settings = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
             >
-                {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                    </MenuItem>
-                ))}
+                <MenuItem key="Logout" onClick={handleCloseUserMenu}>
+                    <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                </MenuItem>
             </Menu>
         </Box>
     )
