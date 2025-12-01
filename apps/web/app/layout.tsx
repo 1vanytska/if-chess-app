@@ -7,6 +7,7 @@ import Header from "./header/header";
 import Providers from "./providers";
 import authenticated from "./auth/authenticated";
 import logout from "./auth/logout";
+import Script from "next/script";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,9 +33,13 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <Script
+          strategy="beforeInteractive"
+          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+        />
         <Providers authenticated={isAuthenticated}>
           <CssBaseline />
-          <Header logout={logout}/>
+          <Header logout={logout} />
           <Container>{children}</Container>
         </Providers>
       </body>
