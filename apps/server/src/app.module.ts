@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
     LoggerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
-        const isProduction = configService.get('NODE_ENV') === 'prodaction';
+        const isProduction = configService.get('NODE_ENV') === 'production';
 
         return {
           pinoHttp: {
