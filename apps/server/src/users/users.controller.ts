@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UnauthorizedException, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UnauthorizedException, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserRequest } from './dto/create-user.request';
 import { NoFilesInterceptor } from '@nestjs/platform-express';
@@ -6,7 +6,6 @@ import { TokenPayload } from '../auth/token-payload.interface';
 import { CurrentUser } from '../auth/current-user.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RecaptchaService } from '../auth/recaptcha.service';
-
 
 @Controller('users')
 export class UsersController {

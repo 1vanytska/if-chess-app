@@ -4,6 +4,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailModule } from './email/email.module';
+import { AdminController } from './users/admin.controller';
+import { UsersController } from './users/users.controller';
+import { RecaptchaService } from './auth/recaptcha.service'; 
 
 @Module({
   imports: [
@@ -27,7 +30,9 @@ import { EmailModule } from './email/email.module';
       inject: [ConfigService],
     }),
     ConfigModule.forRoot(), UsersModule, AuthModule, EmailModule],
-  controllers: [],
-  providers: [],
+  controllers: [UsersController, AdminController],
+  providers: [
+    RecaptchaService,
+  ],
 })
 export class AppModule {}
