@@ -1,4 +1,4 @@
-import { Controller, Post, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Query, Res, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { Response } from 'express';
 import { CurrentUser } from './current-user.decorator';
@@ -16,5 +16,10 @@ export class AuthController {
         @Res({ passthrough: true}) response: Response,
     ) {
         return this.authService.login(user, response)
+    }
+
+    @Get('verify')
+    async verifyEmail(@Query('token') token: string) {
+        return this.authService.verifyEmail(token);
     }
 }

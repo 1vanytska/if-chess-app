@@ -3,6 +3,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { AuthModule } from './auth/auth.module';
       },
       inject: [ConfigService],
     }),
-    ConfigModule.forRoot(), UsersModule, AuthModule],
+    ConfigModule.forRoot(), UsersModule, AuthModule, EmailModule],
   controllers: [],
   providers: [],
 })

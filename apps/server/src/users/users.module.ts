@@ -4,9 +4,10 @@ import { UsersService } from './users.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { RecaptchaService } from '../auth/recaptcha.service';
 import { ConfigModule } from '@nestjs/config';
+import { EmailModule } from '../email/email.module';
 
 @Module({
-  imports: [PrismaModule, ConfigModule],
+  imports: [PrismaModule, ConfigModule, EmailModule],
   controllers: [UsersController],
   providers: [UsersService, RecaptchaService],
   exports: [UsersService]
