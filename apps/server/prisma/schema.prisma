@@ -21,7 +21,9 @@ model User {
   verificationToken   String?  @unique
   failedLoginAttempts Int      @default(0)
   role                UserRole   @default(USER)
-  isLocked            Boolean  @default(false) 
+  isLocked            Boolean  @default(false)
+  twoFAEnabled        Boolean  @default(false)
+  twoFASecret         String?  
   loginAttempts       LoginAttempt[] 
 }
 

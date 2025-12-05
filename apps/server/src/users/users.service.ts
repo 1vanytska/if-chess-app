@@ -51,6 +51,12 @@ export class UsersService {
     });
   }
 
+  async getUserById(id: number) {
+    return this.prismaService.user.findUniqueOrThrow({
+      where: { id },
+    });
+  }
+
   async getLoginAttempts(userId: number) {
     return this.prismaService.loginAttempt.findMany({
       where: { userId },

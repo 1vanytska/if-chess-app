@@ -80,7 +80,9 @@ export const UserScalarFieldEnum = {
   verificationToken: 'verificationToken',
   failedLoginAttempts: 'failedLoginAttempts',
   role: 'role',
-  isLocked: 'isLocked'
+  isLocked: 'isLocked',
+  twoFAEnabled: 'twoFAEnabled',
+  twoFASecret: 'twoFASecret'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]

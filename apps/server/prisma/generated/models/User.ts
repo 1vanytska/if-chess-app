@@ -46,6 +46,8 @@ export type UserMinAggregateOutputType = {
   failedLoginAttempts: number | null
   role: $Enums.UserRole | null
   isLocked: boolean | null
+  twoFAEnabled: boolean | null
+  twoFASecret: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -58,6 +60,8 @@ export type UserMaxAggregateOutputType = {
   failedLoginAttempts: number | null
   role: $Enums.UserRole | null
   isLocked: boolean | null
+  twoFAEnabled: boolean | null
+  twoFASecret: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -70,6 +74,8 @@ export type UserCountAggregateOutputType = {
   failedLoginAttempts: number
   role: number
   isLocked: number
+  twoFAEnabled: number
+  twoFASecret: number
   _all: number
 }
 
@@ -94,6 +100,8 @@ export type UserMinAggregateInputType = {
   failedLoginAttempts?: true
   role?: true
   isLocked?: true
+  twoFAEnabled?: true
+  twoFASecret?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -106,6 +114,8 @@ export type UserMaxAggregateInputType = {
   failedLoginAttempts?: true
   role?: true
   isLocked?: true
+  twoFAEnabled?: true
+  twoFASecret?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -118,6 +128,8 @@ export type UserCountAggregateInputType = {
   failedLoginAttempts?: true
   role?: true
   isLocked?: true
+  twoFAEnabled?: true
+  twoFASecret?: true
   _all?: true
 }
 
@@ -217,6 +229,8 @@ export type UserGroupByOutputType = {
   failedLoginAttempts: number
   role: $Enums.UserRole
   isLocked: boolean
+  twoFAEnabled: boolean
+  twoFASecret: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -252,6 +266,8 @@ export type UserWhereInput = {
   failedLoginAttempts?: Prisma.IntFilter<"User"> | number
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   isLocked?: Prisma.BoolFilter<"User"> | boolean
+  twoFAEnabled?: Prisma.BoolFilter<"User"> | boolean
+  twoFASecret?: Prisma.StringNullableFilter<"User"> | string | null
   loginAttempts?: Prisma.LoginAttemptListRelationFilter
 }
 
@@ -265,6 +281,8 @@ export type UserOrderByWithRelationInput = {
   failedLoginAttempts?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
+  twoFAEnabled?: Prisma.SortOrder
+  twoFASecret?: Prisma.SortOrderInput | Prisma.SortOrder
   loginAttempts?: Prisma.LoginAttemptOrderByRelationAggregateInput
 }
 
@@ -281,6 +299,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   failedLoginAttempts?: Prisma.IntFilter<"User"> | number
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   isLocked?: Prisma.BoolFilter<"User"> | boolean
+  twoFAEnabled?: Prisma.BoolFilter<"User"> | boolean
+  twoFASecret?: Prisma.StringNullableFilter<"User"> | string | null
   loginAttempts?: Prisma.LoginAttemptListRelationFilter
 }, "id" | "email" | "verificationToken">
 
@@ -294,6 +314,8 @@ export type UserOrderByWithAggregationInput = {
   failedLoginAttempts?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
+  twoFAEnabled?: Prisma.SortOrder
+  twoFASecret?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -314,6 +336,8 @@ export type UserScalarWhereWithAggregatesInput = {
   failedLoginAttempts?: Prisma.IntWithAggregatesFilter<"User"> | number
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   isLocked?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  twoFAEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  twoFASecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -325,6 +349,8 @@ export type UserCreateInput = {
   failedLoginAttempts?: number
   role?: $Enums.UserRole
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: string | null
   loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutUserInput
 }
 
@@ -338,6 +364,8 @@ export type UserUncheckedCreateInput = {
   failedLoginAttempts?: number
   role?: $Enums.UserRole
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: string | null
   loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -350,6 +378,8 @@ export type UserUpdateInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutUserNestedInput
 }
 
@@ -363,6 +393,8 @@ export type UserUncheckedUpdateInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -376,6 +408,8 @@ export type UserCreateManyInput = {
   failedLoginAttempts?: number
   role?: $Enums.UserRole
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -387,6 +421,8 @@ export type UserUpdateManyMutationInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -399,6 +435,8 @@ export type UserUncheckedUpdateManyInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -411,6 +449,8 @@ export type UserCountOrderByAggregateInput = {
   failedLoginAttempts?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
+  twoFAEnabled?: Prisma.SortOrder
+  twoFASecret?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -428,6 +468,8 @@ export type UserMaxOrderByAggregateInput = {
   failedLoginAttempts?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
+  twoFAEnabled?: Prisma.SortOrder
+  twoFASecret?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -440,6 +482,8 @@ export type UserMinOrderByAggregateInput = {
   failedLoginAttempts?: Prisma.SortOrder
   role?: Prisma.SortOrder
   isLocked?: Prisma.SortOrder
+  twoFAEnabled?: Prisma.SortOrder
+  twoFASecret?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -505,6 +549,8 @@ export type UserCreateWithoutLoginAttemptsInput = {
   failedLoginAttempts?: number
   role?: $Enums.UserRole
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: string | null
 }
 
 export type UserUncheckedCreateWithoutLoginAttemptsInput = {
@@ -517,6 +563,8 @@ export type UserUncheckedCreateWithoutLoginAttemptsInput = {
   failedLoginAttempts?: number
   role?: $Enums.UserRole
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: string | null
 }
 
 export type UserCreateOrConnectWithoutLoginAttemptsInput = {
@@ -544,6 +592,8 @@ export type UserUpdateWithoutLoginAttemptsInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateWithoutLoginAttemptsInput = {
@@ -556,6 +606,8 @@ export type UserUncheckedUpdateWithoutLoginAttemptsInput = {
   failedLoginAttempts?: Prisma.IntFieldUpdateOperationsInput | number
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -599,6 +651,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   failedLoginAttempts?: boolean
   role?: boolean
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: boolean
   loginAttempts?: boolean | Prisma.User$loginAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -613,6 +667,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   failedLoginAttempts?: boolean
   role?: boolean
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -625,6 +681,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   failedLoginAttempts?: boolean
   role?: boolean
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -637,9 +695,11 @@ export type UserSelectScalar = {
   failedLoginAttempts?: boolean
   role?: boolean
   isLocked?: boolean
+  twoFAEnabled?: boolean
+  twoFASecret?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "createdAt" | "emailVerified" | "verificationToken" | "failedLoginAttempts" | "role" | "isLocked", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "createdAt" | "emailVerified" | "verificationToken" | "failedLoginAttempts" | "role" | "isLocked" | "twoFAEnabled" | "twoFASecret", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   loginAttempts?: boolean | Prisma.User$loginAttemptsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -662,6 +722,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     failedLoginAttempts: number
     role: $Enums.UserRole
     isLocked: boolean
+    twoFAEnabled: boolean
+    twoFASecret: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1095,6 +1157,8 @@ export interface UserFieldRefs {
   readonly failedLoginAttempts: Prisma.FieldRef<"User", 'Int'>
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly isLocked: Prisma.FieldRef<"User", 'Boolean'>
+  readonly twoFAEnabled: Prisma.FieldRef<"User", 'Boolean'>
+  readonly twoFASecret: Prisma.FieldRef<"User", 'String'>
 }
     
 
