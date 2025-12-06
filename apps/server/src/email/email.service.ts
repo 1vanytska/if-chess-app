@@ -29,4 +29,17 @@ export class EmailService {
 
     await this.transporter.sendMail(mailOptions);
   }
+
+  async sendPasswordResetEmail(email: string, token: string) {
+    const resetUrl = `${this.configService.get<string>('APP_URL')}/auth/reset-password?token=${token}`;
+    const mailOptions = {
+      from: `"${this.configService.get<string>('MAIL_SENDER_NAME_DEFAULT')}" <${this.configService.get<string>('MAIL_SENDER_DEFAULT')}>`,
+      to: email,
+      subject: 'Password Reset Request',
+      html: `<p>Click here to reset your password: <a href="${resetUrl}">${resetUrl}</a></p>
+           <p>This link will expire in 15 minutes.</p>`,
+    };
+
+    await this.transporter.sendMail(mailOptions);
+  }
 }

@@ -47,3 +47,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type LoginAttempt = Prisma.LoginAttemptModel
+/**
+ * Model PasswordResetToken
+ * 
+ */
+export type PasswordResetToken = Prisma.PasswordResetTokenModel

@@ -9,6 +9,8 @@ import { PrismaService } from '../prisma/prisma.service';
 import { User } from 'prisma/generated/client';
 import { TwoFAService } from './twofa.service';
 import { TwoFARequiredException } from './twofa-required.exception';
+import { randomBytes } from 'crypto';
+import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +20,8 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly prismaService: PrismaService,
     private readonly twoFAService: TwoFAService,
-  ) {}
+    private readonly emailService: EmailService,
+  ) { }
 
   async login(user: User, response: Response) {
     if (!user.emailVerified) {
@@ -65,7 +68,7 @@ export class AuthService {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    return { 
+    return {
       message: 'Successfully authenticated',
       user: { id: user.id, email: user.email, role: user.role },
     };
@@ -140,5 +143,45 @@ export class AuthService {
     });
 
     return { message: 'Email successfully verified!' };
+  }
+
+  async requestPasswordReset(email: string) {
+    const user = await this.usersService.getUser({ email });
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const token = randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 1000 * 60 * 15);
+
+    await this.prismaService.passwordResetToken.create({
+      data: { token, userId: user.id, expiresAt },
+    });
+
+    await this.emailService.sendPasswordResetEmail(user.email, token);
+
+    return { message: 'Password reset link sent to email' };
+  }
+
+  async resetPassword(token: string, newPassword: string) {
+    const resetToken = await this.prismaService.passwordResetToken.findUnique({ where: { token } });
+
+    if (!resetToken || resetToken.usedAt || resetToken.expiresAt < new Date()) {
+      throw new BadRequestException('Invalid or expired token');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await this.prismaService.user.update({
+      where: { id: resetToken.userId },
+      data: { password: hashedPassword },
+    });
+
+    await this.prismaService.passwordResetToken.update({
+      where: { id: resetToken.id },
+      data: { usedAt: new Date() },
+    });
+
+    return { message: 'Password successfully reset' };
   }
 }

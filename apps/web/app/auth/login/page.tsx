@@ -23,6 +23,9 @@ export default function Login() {
                 <TextField error={!!state.error && !state.requires2FA} helperText={state.error} name="email" label="Email" variant="outlined" type="email" />
                 <TextField error={!!state.error && !state.requires2FA} helperText={state.error} name="password" label="Password" variant="outlined" type="password" />
                 <Button type="submit" variant="contained">Login</Button>
+                <small><Link component={NextLink} href="/auth/forgot-password" className="self-left">
+                    Forgot password?
+                </Link></small>
                 <Link component={NextLink} href="/auth/signup" className="self-center">
                     Signup
                 </Link>

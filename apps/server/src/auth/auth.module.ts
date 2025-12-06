@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { PrismaModule } from '../prisma/prisma.module';
 import { TwoFAService } from './twofa.service';
+import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [JwtModule.registerAsync({
@@ -23,6 +24,7 @@ import { TwoFAService } from './twofa.service';
   ConfigModule,
   UsersModule, 
   PrismaModule,
+  EmailModule,
 ],
   controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy, TwoFAService],

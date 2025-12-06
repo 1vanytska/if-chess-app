@@ -6,13 +6,14 @@ import { EmailService } from '../email/email.service';
 import { v4 as uuidv4 } from 'uuid';
 import { UserRole } from 'prisma/generated/enums';
 import { Prisma } from 'prisma/generated/client';
+import { BadRequestException } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly emailService: EmailService,
-  ) {}
+  ) { }
 
   async createUser(data: CreateUserRequest) {
     try {
@@ -46,15 +47,27 @@ export class UsersService {
   }
 
   async getUser(filter: Prisma.UserWhereUniqueInput) {
-    return this.prismaService.user.findUniqueOrThrow({
+    const user = await this.prismaService.user.findUnique({
       where: filter,
     });
+
+    if (!user) {
+      throw new BadRequestException('User not registered');
+    }
+
+    return user;
   }
 
   async getUserById(id: number) {
-    return this.prismaService.user.findUniqueOrThrow({
+    const user = await this.prismaService.user.findUnique({
       where: { id },
     });
+
+    if (!user) {
+      throw new BadRequestException('User not registered');
+    }
+
+    return user;
   }
 
   async getLoginAttempts(userId: number) {
