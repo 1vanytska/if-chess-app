@@ -48,6 +48,8 @@ export type UserMinAggregateOutputType = {
   isLocked: boolean | null
   twoFAEnabled: boolean | null
   twoFASecret: string | null
+  provider: $Enums.AuthProvider | null
+  providerId: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -62,6 +64,8 @@ export type UserMaxAggregateOutputType = {
   isLocked: boolean | null
   twoFAEnabled: boolean | null
   twoFASecret: string | null
+  provider: $Enums.AuthProvider | null
+  providerId: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -76,6 +80,8 @@ export type UserCountAggregateOutputType = {
   isLocked: number
   twoFAEnabled: number
   twoFASecret: number
+  provider: number
+  providerId: number
   _all: number
 }
 
@@ -102,6 +108,8 @@ export type UserMinAggregateInputType = {
   isLocked?: true
   twoFAEnabled?: true
   twoFASecret?: true
+  provider?: true
+  providerId?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -116,6 +124,8 @@ export type UserMaxAggregateInputType = {
   isLocked?: true
   twoFAEnabled?: true
   twoFASecret?: true
+  provider?: true
+  providerId?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -130,6 +140,8 @@ export type UserCountAggregateInputType = {
   isLocked?: true
   twoFAEnabled?: true
   twoFASecret?: true
+  provider?: true
+  providerId?: true
   _all?: true
 }
 
@@ -222,7 +234,7 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: number
   email: string
-  password: string
+  password: string | null
   createdAt: Date
   emailVerified: boolean
   verificationToken: string | null
@@ -231,6 +243,8 @@ export type UserGroupByOutputType = {
   isLocked: boolean
   twoFAEnabled: boolean
   twoFASecret: string | null
+  provider: $Enums.AuthProvider
+  providerId: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -259,7 +273,7 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   verificationToken?: Prisma.StringNullableFilter<"User"> | string | null
@@ -268,6 +282,8 @@ export type UserWhereInput = {
   isLocked?: Prisma.BoolFilter<"User"> | boolean
   twoFAEnabled?: Prisma.BoolFilter<"User"> | boolean
   twoFASecret?: Prisma.StringNullableFilter<"User"> | string | null
+  provider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
+  providerId?: Prisma.StringNullableFilter<"User"> | string | null
   loginAttempts?: Prisma.LoginAttemptListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
 }
@@ -275,7 +291,7 @@ export type UserWhereInput = {
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   verificationToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -284,6 +300,8 @@ export type UserOrderByWithRelationInput = {
   isLocked?: Prisma.SortOrder
   twoFAEnabled?: Prisma.SortOrder
   twoFASecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrderInput | Prisma.SortOrder
   loginAttempts?: Prisma.LoginAttemptOrderByRelationAggregateInput
   passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
 }
@@ -295,7 +313,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
   failedLoginAttempts?: Prisma.IntFilter<"User"> | number
@@ -303,6 +321,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   isLocked?: Prisma.BoolFilter<"User"> | boolean
   twoFAEnabled?: Prisma.BoolFilter<"User"> | boolean
   twoFASecret?: Prisma.StringNullableFilter<"User"> | string | null
+  provider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
+  providerId?: Prisma.StringNullableFilter<"User"> | string | null
   loginAttempts?: Prisma.LoginAttemptListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
 }, "id" | "email" | "verificationToken">
@@ -310,7 +330,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
   verificationToken?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -319,6 +339,8 @@ export type UserOrderByWithAggregationInput = {
   isLocked?: Prisma.SortOrder
   twoFAEnabled?: Prisma.SortOrder
   twoFASecret?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -332,7 +354,7 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   verificationToken?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -341,11 +363,13 @@ export type UserScalarWhereWithAggregatesInput = {
   isLocked?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   twoFAEnabled?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   twoFASecret?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  provider?: Prisma.EnumAuthProviderWithAggregatesFilter<"User"> | $Enums.AuthProvider
+  providerId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
   email: string
-  password: string
+  password?: string | null
   createdAt?: Date | string
   emailVerified?: boolean
   verificationToken?: string | null
@@ -354,6 +378,8 @@ export type UserCreateInput = {
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: string | null
+  provider?: $Enums.AuthProvider
+  providerId?: string | null
   loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
@@ -361,7 +387,7 @@ export type UserCreateInput = {
 export type UserUncheckedCreateInput = {
   id?: number
   email: string
-  password: string
+  password?: string | null
   createdAt?: Date | string
   emailVerified?: boolean
   verificationToken?: string | null
@@ -370,13 +396,15 @@ export type UserUncheckedCreateInput = {
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: string | null
+  provider?: $Enums.AuthProvider
+  providerId?: string | null
   loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -385,6 +413,8 @@ export type UserUpdateInput = {
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
@@ -392,7 +422,7 @@ export type UserUpdateInput = {
 export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -401,6 +431,8 @@ export type UserUncheckedUpdateInput = {
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -408,7 +440,7 @@ export type UserUncheckedUpdateInput = {
 export type UserCreateManyInput = {
   id?: number
   email: string
-  password: string
+  password?: string | null
   createdAt?: Date | string
   emailVerified?: boolean
   verificationToken?: string | null
@@ -417,11 +449,13 @@ export type UserCreateManyInput = {
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: string | null
+  provider?: $Enums.AuthProvider
+  providerId?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -430,12 +464,14 @@ export type UserUpdateManyMutationInput = {
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -444,6 +480,8 @@ export type UserUncheckedUpdateManyInput = {
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -458,6 +496,8 @@ export type UserCountOrderByAggregateInput = {
   isLocked?: Prisma.SortOrder
   twoFAEnabled?: Prisma.SortOrder
   twoFASecret?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -477,6 +517,8 @@ export type UserMaxOrderByAggregateInput = {
   isLocked?: Prisma.SortOrder
   twoFAEnabled?: Prisma.SortOrder
   twoFASecret?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -491,6 +533,8 @@ export type UserMinOrderByAggregateInput = {
   isLocked?: Prisma.SortOrder
   twoFAEnabled?: Prisma.SortOrder
   twoFASecret?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  providerId?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -512,16 +556,16 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -534,6 +578,10 @@ export type IntFieldUpdateOperationsInput = {
 
 export type EnumUserRoleFieldUpdateOperationsInput = {
   set?: $Enums.UserRole
+}
+
+export type EnumAuthProviderFieldUpdateOperationsInput = {
+  set?: $Enums.AuthProvider
 }
 
 export type UserCreateNestedOneWithoutLoginAttemptsInput = {
@@ -568,7 +616,7 @@ export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
 
 export type UserCreateWithoutLoginAttemptsInput = {
   email: string
-  password: string
+  password?: string | null
   createdAt?: Date | string
   emailVerified?: boolean
   verificationToken?: string | null
@@ -577,13 +625,15 @@ export type UserCreateWithoutLoginAttemptsInput = {
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: string | null
+  provider?: $Enums.AuthProvider
+  providerId?: string | null
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLoginAttemptsInput = {
   id?: number
   email: string
-  password: string
+  password?: string | null
   createdAt?: Date | string
   emailVerified?: boolean
   verificationToken?: string | null
@@ -592,6 +642,8 @@ export type UserUncheckedCreateWithoutLoginAttemptsInput = {
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: string | null
+  provider?: $Enums.AuthProvider
+  providerId?: string | null
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -613,7 +665,7 @@ export type UserUpdateToOneWithWhereWithoutLoginAttemptsInput = {
 
 export type UserUpdateWithoutLoginAttemptsInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -622,13 +674,15 @@ export type UserUpdateWithoutLoginAttemptsInput = {
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLoginAttemptsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -637,12 +691,14 @@ export type UserUncheckedUpdateWithoutLoginAttemptsInput = {
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
   email: string
-  password: string
+  password?: string | null
   createdAt?: Date | string
   emailVerified?: boolean
   verificationToken?: string | null
@@ -651,13 +707,15 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: string | null
+  provider?: $Enums.AuthProvider
+  providerId?: string | null
   loginAttempts?: Prisma.LoginAttemptCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   id?: number
   email: string
-  password: string
+  password?: string | null
   createdAt?: Date | string
   emailVerified?: boolean
   verificationToken?: string | null
@@ -666,6 +724,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: string | null
+  provider?: $Enums.AuthProvider
+  providerId?: string | null
   loginAttempts?: Prisma.LoginAttemptUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -687,7 +747,7 @@ export type UserUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
 
 export type UserUpdateWithoutPasswordResetTokensInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -696,13 +756,15 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   loginAttempts?: Prisma.LoginAttemptUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   verificationToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -711,6 +773,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   isLocked?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   twoFASecret?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   loginAttempts?: Prisma.LoginAttemptUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -766,6 +830,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: boolean
+  provider?: boolean
+  providerId?: boolean
   loginAttempts?: boolean | Prisma.User$loginAttemptsArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -783,6 +849,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: boolean
+  provider?: boolean
+  providerId?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -797,6 +865,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: boolean
+  provider?: boolean
+  providerId?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -811,9 +881,11 @@ export type UserSelectScalar = {
   isLocked?: boolean
   twoFAEnabled?: boolean
   twoFASecret?: boolean
+  provider?: boolean
+  providerId?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "createdAt" | "emailVerified" | "verificationToken" | "failedLoginAttempts" | "role" | "isLocked" | "twoFAEnabled" | "twoFASecret", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "createdAt" | "emailVerified" | "verificationToken" | "failedLoginAttempts" | "role" | "isLocked" | "twoFAEnabled" | "twoFASecret" | "provider" | "providerId", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   loginAttempts?: boolean | Prisma.User$loginAttemptsArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
@@ -831,7 +903,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     email: string
-    password: string
+    password: string | null
     createdAt: Date
     emailVerified: boolean
     verificationToken: string | null
@@ -840,6 +912,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     isLocked: boolean
     twoFAEnabled: boolean
     twoFASecret: string | null
+    provider: $Enums.AuthProvider
+    providerId: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1276,6 +1350,8 @@ export interface UserFieldRefs {
   readonly isLocked: Prisma.FieldRef<"User", 'Boolean'>
   readonly twoFAEnabled: Prisma.FieldRef<"User", 'Boolean'>
   readonly twoFASecret: Prisma.FieldRef<"User", 'String'>
+  readonly provider: Prisma.FieldRef<"User", 'AuthProvider'>
+  readonly providerId: Prisma.FieldRef<"User", 'String'>
 }
     
 

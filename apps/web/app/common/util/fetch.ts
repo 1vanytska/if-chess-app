@@ -24,6 +24,7 @@ export const post = async (path: string, formData: FormData) => {
     method: "POST",
     headers,
     body: JSON.stringify(payload),
+    credentials: "include",
   });
 
   let parsedRes;

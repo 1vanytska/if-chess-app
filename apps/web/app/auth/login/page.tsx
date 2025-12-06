@@ -26,6 +26,13 @@ export default function Login() {
                 <small><Link component={NextLink} href="/auth/forgot-password" className="self-left">
                     Forgot password?
                 </Link></small>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => window.location.href = "http://localhost:3003/auth/google"}
+                >
+                    Увійти через Google
+                </Button>
                 <Link component={NextLink} href="/auth/signup" className="self-center">
                     Signup
                 </Link>

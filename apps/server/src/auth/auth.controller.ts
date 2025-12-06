@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { User } from 'prisma/generated/client';
 import { TwoFAService } from './twofa.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -67,5 +68,25 @@ export class AuthController {
   @Post('reset-password')
   async resetPassword(@Body('token') token: string, @Body('newPassword') newPassword: string) {
     return this.authService.resetPassword(token, newPassword);
+  }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleLogin() {
+  }
+
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  async googleCallback(@Req() req, @Res() res: Response) {
+    const result = await this.authService.loginWithOAuth(req.user);
+
+    res.cookie('Authentication', result.token, {
+      secure: true,
+      httpOnly: true,
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    return res.redirect('http://localhost:3000/profile');
   }
 }

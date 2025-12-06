@@ -9,6 +9,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { PrismaModule } from '../prisma/prisma.module';
 import { TwoFAService } from './twofa.service';
 import { EmailModule } from '../email/email.module';
+import { GoogleStrategy } from './strategies/google.strategy';
 
 @Module({
   imports: [JwtModule.registerAsync({
@@ -27,6 +28,6 @@ import { EmailModule } from '../email/email.module';
   EmailModule,
 ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, TwoFAService],
+  providers: [AuthService, LocalStrategy, JwtStrategy, TwoFAService, GoogleStrategy],
 })
 export class AuthModule {}

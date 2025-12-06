@@ -57,21 +57,20 @@ export class AuthService {
     return this.issueToken(user, response);
   }
 
-  private issueToken(user: User, response: Response) {
+  private issueToken(user: User, response?: Response) {
     const tokenPayload: TokenPayload = { userId: user.id, role: user.role };
     const token = this.jwtService.sign(tokenPayload);
 
-    response.cookie('Authentication', token, {
-      secure: true,
-      httpOnly: true,
-      sameSite: 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+    if (response) {
+      response.cookie('Authentication', token, {
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+    }
 
-    return {
-      message: 'Successfully authenticated',
-      user: { id: user.id, email: user.email, role: user.role },
-    };
+    return { token, user: { id: user.id, email: user.email, role: user.role } };
   }
 
   async verifyUser(email: string, password: string, req: Request) {
@@ -183,5 +182,25 @@ export class AuthService {
     });
 
     return { message: 'Password successfully reset' };
+  }
+
+  async loginWithOAuth(oauthUser: { provider: string; providerId: string; email: string }) {
+    let user = await this.prismaService.user.findUnique({
+      where: { email: oauthUser.email },
+    });
+
+    if (!user) {
+      user = await this.prismaService.user.create({
+        data: {
+          email: oauthUser.email,
+          provider: oauthUser.provider.toUpperCase() as any,
+          providerId: oauthUser.providerId,
+          emailVerified: true,
+          role: 'USER',
+        },
+      });
+    }
+
+    return this.issueToken(user);
   }
 }

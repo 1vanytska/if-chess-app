@@ -83,7 +83,9 @@ export const UserScalarFieldEnum = {
   role: 'role',
   isLocked: 'isLocked',
   twoFAEnabled: 'twoFAEnabled',
-  twoFASecret: 'twoFASecret'
+  twoFASecret: 'twoFASecret',
+  provider: 'provider',
+  providerId: 'providerId'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
