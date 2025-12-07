@@ -9,7 +9,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { User } from 'prisma/generated/client';
 import { TwoFAService } from './twofa.service';
 import { TwoFARequiredException } from './twofa-required.exception';
-import { randomBytes } from 'crypto';
+import { randomBytes } from 'node:crypto';
 import { EmailService } from '../email/email.service';
 
 @Injectable()

@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class EmailService {
-  private transporter;
+  private readonly transporter;
 
   constructor(private readonly configService: ConfigService) {
     this.transporter = nodemailer.createTransport({
@@ -37,7 +37,7 @@ export class EmailService {
       to: email,
       subject: 'Password Reset Request',
       html: `<p>Click here to reset your password: <a href="${resetUrl}">${resetUrl}</a></p>
-           <p>This link will expire in 15 minutes.</p>`,
+             <p>This link will expire in 15 minutes.</p>`,
     };
 
     await this.transporter.sendMail(mailOptions);

@@ -11,8 +11,8 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('auth')
 export class AuthController {
   constructor(
-    private authService: AuthService,
-    private twoFAService: TwoFAService,
+    private readonly authService: AuthService,
+    private readonly twoFAService: TwoFAService,
   ) { }
 
   @UseGuards(LocalAuthGuard)
@@ -72,8 +72,8 @@ export class AuthController {
 
   @Get('google')
   @UseGuards(AuthGuard('google'))
-  async googleLogin() {
-  }
+  googleLogin() {
+}
 
   @Get('google/callback')
   @UseGuards(AuthGuard('google'))

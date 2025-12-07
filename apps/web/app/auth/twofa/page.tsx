@@ -13,7 +13,7 @@ export default function TwoFaPage() {
 
     useEffect(() => {
         if (!userId) {
-            window.location.href = '/auth/login'; 
+            globalThis.location.href = '/auth/login'; 
         }
     }, [userId]);
 
@@ -39,8 +39,7 @@ export default function TwoFaPage() {
                     name="twoFACode" 
                     label="2FA Code" 
                     variant="outlined" 
-                    type="text" 
-                    slotProps={{input:{maxLength: 6}}}
+                    type="text"
                 />
 
                 <Button type="submit" variant="contained">Підтвердити</Button>

@@ -7,16 +7,18 @@ import darkTheme from "./dark.theme";
 import { AuthContext } from "./auth/auth-context";
 
 interface ProviderProps {
-    children: ReactElement[];
-    authenticated: boolean;
+  readonly children: ReactElement[];
+  readonly authenticated: boolean;
 }
 
 export default function Providers({ children, authenticated }: ProviderProps) {
-    return (
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={darkTheme}>
-            <AuthContext.Provider value={authenticated}>{children}</AuthContext.Provider>
-        </ThemeProvider>
-        </AppRouterCacheProvider>
-    )
+  return (
+    <AppRouterCacheProvider>
+      <ThemeProvider theme={darkTheme}>
+        <AuthContext.Provider value={authenticated}>
+          {children}
+        </AuthContext.Provider>
+      </ThemeProvider>
+    </AppRouterCacheProvider>
+  );
 }

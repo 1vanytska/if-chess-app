@@ -2,12 +2,18 @@ import { NextRequest } from "next/server";
 import authenticated from "./app/auth/authenticated";
 import { unauthenticatedRoutes } from "./app/common/constants/routes";
 
-export function middleware(request: NextRequest) {
-    if (!authenticated() && !unauthenticatedRoutes.some(route => request.nextUrl.pathname.startsWith(route.path))) {
-        return Response.redirect(new URL("/auth/login", request.url));
-    }
+export async function middleware(request: NextRequest) {
+  const isAuth = await authenticated();
+
+  const isUnauthenticatedRoute = unauthenticatedRoutes.some(route =>
+    request.nextUrl.pathname.startsWith(route.path)
+  );
+
+  if (!isAuth && !isUnauthenticatedRoute) {
+    return Response.redirect(new URL("/auth/login", request.url));
+  }
 }
 
 export const config = {
-    matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: [String.raw`/((?!api|_next/static|_next/image|.*\.png$).*)`],
 };

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UnauthorizedException, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserRequest } from './dto/create-user.request';
 import { NoFilesInterceptor } from '@nestjs/platform-express';
@@ -17,17 +17,7 @@ export class UsersController {
     @Post()
     @UseInterceptors(NoFilesInterceptor())
     async createUser(@Body() request: CreateUserRequest) {
-
-        const isValid = await this.recaptchaService.validate(request.recaptchaToken);
-
-        if (!isValid) {
-            throw new UnauthorizedException("Invalid captcha");
-        }
-
-        return this.usersService.createUser({
-            email: request.email,
-            password: request.password,
-        } as CreateUserRequest);
+        return this.usersService.createUser(request);
     }
 
     @Get('me')

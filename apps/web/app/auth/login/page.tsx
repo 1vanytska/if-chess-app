@@ -29,7 +29,7 @@ export default function Login() {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => window.location.href = "http://localhost:3003/auth/google"}
+                    onClick={() => globalThis.location.href = "http://localhost:3003/auth/google"}
                 >
                     Увійти через Google
                 </Button>

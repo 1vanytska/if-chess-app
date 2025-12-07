@@ -39,7 +39,7 @@ export function WhiteKnightIcon(props: SvgIconProps) {
 }
 
 interface HeaderProps {
-    logout: () => Promise<void>;
+    readonly logout: () => Promise<void>;
 }
 
 export default function Header({ logout }: HeaderProps) {
@@ -151,7 +151,7 @@ export default function Header({ logout }: HeaderProps) {
                             </Button>
                         ))}
                     </Box>
-                    {IsAuthenticated && <Settings logout={logout}/>}
+                    {IsAuthenticated && <Settings logout={logout} />}
                 </Toolbar>
             </Container>
         </AppBar>
