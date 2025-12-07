@@ -21,12 +21,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     profile: any,
     done: VerifyCallback
   ) {
-    if (!profile || !profile.id || !profile.emails?.[0]?.value) {
+    const email = profile?.emails?.[0]?.value;
+    const providerId = profile?.id;
+
+    if (!email || !providerId) {
       return done(new Error('Invalid Google profile'), false);
     }
-
-    const email = profile.emails[0].value;
-    const providerId = profile.id;
 
     done(null, { provider: 'google', providerId, email });
   }

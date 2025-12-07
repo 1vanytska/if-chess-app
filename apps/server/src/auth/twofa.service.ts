@@ -24,7 +24,7 @@ export class TwoFAService {
       data: { twoFASecret: secret.base32 },
     });
 
-    const qrCodeDataUrl = await qrcode.toDataURL(secret.otpauth_url!);
+    const qrCodeDataUrl = await qrcode.toDataURL(secret.otpauth_url);
 
     return { 
       qrCodeDataUrl, 

@@ -4,10 +4,6 @@ import { cookies } from "next/headers";
 import { API_URL } from "../constants/api";
 import { getErrorMessage } from "./errors";
 
-// const getHeaders = () => ({
-//     Cookie: cookies().toString()
-// })
-
 const getHeaders = async () => {
   const cookieStore = await cookies();
   return {
@@ -31,6 +27,7 @@ export const post = async (path: string, formData: FormData) => {
   try {
     parsedRes = await res.json();
   } catch (e) {
+    console.error("Failed to parse JSON:", e);
     return { error: "Invalid JSON response from backend" };
   }
 
@@ -43,8 +40,8 @@ export const post = async (path: string, formData: FormData) => {
 };
 
 export const get = async (path: string) => {
-    const res = await fetch(`${API_URL}/${path}`, {
-        headers: { ...(await getHeaders()) },
-    });
-    return res.json();
+  const res = await fetch(`${API_URL}/${path}`, {
+    headers: { ...(await getHeaders()) },
+  });
+  return res.json();
 }

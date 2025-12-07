@@ -39,7 +39,7 @@ export function WhiteKnightIcon(props: SvgIconProps) {
 }
 
 interface HeaderProps {
-    logout: () => Promise<void>;
+    readonly logout: () => Promise<void>;
 }
 
 export default function Header({ logout }: HeaderProps) {

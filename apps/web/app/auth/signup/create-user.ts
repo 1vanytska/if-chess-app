@@ -8,8 +8,6 @@ export default async function createUser(
   _prevState: FormError,
   formData: FormData
 ) {
-  const recaptchaToken = formData.get("recaptchaToken");
-
   const { error } = await post("users", formData);
 
   if (error) {

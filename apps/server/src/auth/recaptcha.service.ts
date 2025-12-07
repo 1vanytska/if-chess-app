@@ -14,25 +14,25 @@ export class RecaptchaService {
                 params: { secret: secretKey, response: token },
             });
 
-
             const { success, score, action, hostname } = response.data;
 
             if (!success) {
-                return false;
+                throw new UnauthorizedException('Invalid reCAPTCHA response');
             }
             if (score < minimumScore) {
-                return false;
+                throw new UnauthorizedException('Low reCAPTCHA score');
             }
             if (expectedHostname && hostname !== expectedHostname) {
-                return false;
+                throw new UnauthorizedException('Hostname mismatch in reCAPTCHA');
             }
-            if (action && action !== "submit") {
-                return false;
+            if (action && action !== 'submit') {
+                throw new UnauthorizedException('Unexpected reCAPTCHA action');
             }
 
             return true;
         } catch (error) {
-            return false;
+            console.error('reCAPTCHA validation failed:', error);
+            throw new UnauthorizedException('reCAPTCHA validation failed');
         }
     }
 }

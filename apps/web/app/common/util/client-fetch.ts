@@ -16,6 +16,7 @@ export const postClient = async (path: string, formData: FormData) => {
   try {
     parsedRes = await res.json();
   } catch (e) {
+    console.error("Failed to parse JSON:", e);
     return { error: "Invalid JSON response from backend" };
   }
 
